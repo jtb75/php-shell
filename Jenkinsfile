@@ -1,19 +1,17 @@
 node {
-
+    
     stage ('Build image') {
-      container('build') {
-        echo 'Building..'
-        sh """
-        pwd
-        ls
-        chmod 777 /var/run/docker.sock
-        docker build -t jtb75/insecure-apache:latest .
-        """
-      }
+        container('build') {
+            echo 'Building..'
+            sh """
+            chmod 777 /var/run/docker.sock
+            docker build -t jtb75/insecure-apache:latest .
+            """
+        }
     }
-
+    
     stage ('Scan Image') {
-      prismaCloudScanImage ca: '',
+        prismaCloudScanImage ca: '',
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
@@ -23,10 +21,10 @@ node {
                     podmanPath: '',
                     project: '',
                     resultsFile: 'prisma-cloud-scan-results.json'
-     }
-
-    stage ('Publish') {
-      prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
     }
-
-  }
+    
+    stage ('Publish') {
+        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+    }
+    
+}
