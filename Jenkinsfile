@@ -7,6 +7,13 @@ pipeline {
           echo 'Building...'
           echo "Running ${env.BUILD_ID} ${env.BUILD_DISPLAY_NAME} on ${env.NODE_NAME} and JOB ${env.JOB_NAME}"
         }
+        container('build') {
+           echo 'Building..'
+           sh """
+           chmod 777 /var/run/docker.sock
+           docker build -t jtb75/insecure-apache:$env.BUILD_ID .
+           """
+        }
    }
    stage('Test') {
      steps {
