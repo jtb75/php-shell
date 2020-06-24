@@ -4,8 +4,10 @@ node {
       container('build') {
         echo 'Building..'
         sh """
+        pwd
+        ls
         chmod 777 /var/run/docker.sock
-        docker build -t jtb76/insecure-apache:latest .
+        docker build -t jtb75/insecure-apache:latest .
         """
       }
     }
@@ -15,7 +17,7 @@ node {
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
-                    image: 'jtb76/insecure-apache:latest',
+                    image: 'jtb75/insecure-apache:latest',
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
