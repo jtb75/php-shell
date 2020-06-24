@@ -1,5 +1,9 @@
 node {
     
+    stage ('Clone Master') {
+        git 'https://github.com/jtb75/insecure-apache.git'
+    }
+    
     stage ('Build image') {
         container('build') {
             echo 'Building..'
