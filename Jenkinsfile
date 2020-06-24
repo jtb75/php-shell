@@ -1,29 +1,30 @@
-pipeline {
-   agent any
+node {
 
-   stages {
-      stage('Build') {
-        steps {
-          echo 'Building...'
-          echo "Running ${env.BUILD_ID} ${env.BUILD_DISPLAY_NAME} on ${env.NODE_NAME} and JOB ${env.JOB_NAME}"
-        }
-        container('build') {
-           echo 'Building..'
-           sh """
-           chmod 777 /var/run/docker.sock
-           docker build -t jtb75/insecure-apache:$env.BUILD_ID .
-           """
-        }
-   }
-   stage('Test') {
-     steps {
-        echo 'Testing...'
+    stage ('Build image') {
+      container('build') {
+        echo 'Building..'
+        sh """
+        chmod 777 /var/run/docker.sock
+        docker build -t jtb76/insecure-apache:latest .
+        """
+      }
+    }
+
+    stage ('Scan Image') {
+      prismaCloudScanImage ca: '',
+                    cert: '',
+                    dockerAddress: 'unix:///var/run/docker.sock',
+                    ignoreImageBuildTime: true,
+                    image: 'jtb76/insecure-apache:latest',
+                    key: '',
+                    logLevel: 'info',
+                    podmanPath: '',
+                    project: '',
+                    resultsFile: 'prisma-cloud-scan-results.json'
      }
-   }
-   stage('Deploy') {
-     steps {
-       echo 'Deploying...'
-     }
-   }
+
+    stage ('Publish') {
+      prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+    }
+
   }
-}
