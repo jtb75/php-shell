@@ -9,7 +9,7 @@ node {
             echo 'Building..'
             sh """
             chmod 777 /var/run/docker.sock
-            docker build -t jtb75/insecure-apache:${env.BUILD_ID} .
+            docker build -t jtb75/insecure-apache:latest .
             """
         }
     }
@@ -19,7 +19,7 @@ node {
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
-                    image: "jtb75/insecure-apache:${env.BUILD_ID}",
+                    image: 'jtb75/insecure-apache:latest',
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
