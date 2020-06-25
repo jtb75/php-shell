@@ -1,7 +1,7 @@
 node {
     
     stage ('Clone Master') {
-        git 'https://github.com/jtb75/insecure-apache.git'
+        git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
     
     stage ('Build image') {
@@ -9,7 +9,7 @@ node {
             echo 'Building..'
             sh """
             chmod 777 /var/run/docker.sock
-            docker build -t jtb75/insecure-apache:latest .
+            docker build -t jtb75/insecure-apache:${env.BUILD_ID} .
             """
         }
     }
@@ -19,7 +19,7 @@ node {
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
-                    image: 'jtb75/insecure-apache:latest',
+                    image: 'jtb75/insecure-apache:${env.BUILD_ID}',
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
