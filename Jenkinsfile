@@ -27,7 +27,7 @@ node {
                     resultsFile: 'prisma-cloud-scan-results.json'
     }
     
-    stage ('Publish') {
+    stage ('Publish Scan Results') {
         prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
     }
     
