@@ -19,7 +19,7 @@ node {
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
-                    image: 'jtb75/insecure-apache:${env.BUILD_ID}',
+                    image: "jtb75/insecure-apache:${env.BUILD_ID}",
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
