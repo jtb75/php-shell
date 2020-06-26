@@ -9,9 +9,12 @@ node {
     }
 
     stage ('Embed Defender') {
-        container('build') {
-            echo 'Embedding'
+        steps {
+            sh 'printenv'
             echo "${PIPELINE}"
+        }
+        container('build') {
+            echo 'Embedding..'
         }
     }
 
