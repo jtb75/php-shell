@@ -35,10 +35,14 @@ node {
         environment {
             HARBOR_COMMON_CRED = credentials('harbor_cred')
         }
-        sh label: '', script: '''docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
-        docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:latest
-        docker push 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
-        docker push 192.168.1.211/webapps/insecure-apache:latest
-        '''
+        container('build') {
+            echo 'Pushing..'
+            sh """
+            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
+            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:latest
+            docker push 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
+            docker push 192.168.1.211/webapps/insecure-apache:latest
+            """
+        }
     }
 }
