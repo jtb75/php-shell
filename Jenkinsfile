@@ -38,12 +38,11 @@ node {
         container('build') {
             echo 'Pushing..'
             sh """
-            sleep 300
-            cat /etc/docker/daemon.json
-            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
-            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:latest
-            docker push 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
-            docker push 192.168.1.211/webapps/insecure-apache:latest
+            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
+            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:latest
+            docker login --username $HARBOR_COMMON_CRED_USR --password $HARBOR_COMMON_CRED_PSW 192.168.1.211:80
+            docker push 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
+            docker push 192.168.1.211:80/webapps/insecure-apache:latest
             """
         }
     }
