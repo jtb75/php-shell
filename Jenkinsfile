@@ -1,9 +1,20 @@
 node {
 
+    environment {
+        PIPELINE = "insecure"
+    }
+
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
-    
+
+    stage ('Embed Defender') {
+        container('build') {
+            echo 'Embedding'
+            echo "${PIPELINE}"
+        }
+    }
+
     stage ('Build image') {
         container('build') {
             echo 'Building..'
