@@ -10,7 +10,6 @@ node {
             sh """
             chmod 777 /var/run/docker.sock
             docker build -t jtb75/insecure-apache:latest .
-            docker images
             """
         }
     }
