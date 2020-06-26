@@ -1,4 +1,7 @@
 node {
+    environment {
+        HARBOR_COMMON_CREDS = credentials('harbor_cred')
+    }
 
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
@@ -33,10 +36,9 @@ node {
 
     stage ('Push Image') {
             container('build') {
-            HARBOR_COMMON_CRED = credentials('harbor_cred')
                 echo 'Pushing..'
                 sh """
-                echo $HARBOR_COMMON_CRED_USR
+                echo ${env.HARBOR_COMMON_CRED_USR}
                 docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
                 docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:latest
                 docker login --username $HARBOR_COMMON_CRED_USR --password $HARBOR_COMMON_CRED_PSW 192.168.1.211:80
