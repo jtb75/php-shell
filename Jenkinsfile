@@ -1,5 +1,5 @@
 node {
-    
+
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
@@ -9,7 +9,7 @@ node {
             echo 'Building..'
             sh """
             chmod 777 /var/run/docker.sock
-            docker build -t jtb75/insecure-apache:$BUILD_NUMBER .
+            docker build -t webapps/insecure-apache:$BUILD_NUMBER .
             """
         }
     }
@@ -19,7 +19,7 @@ node {
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     ignoreImageBuildTime: true,
-                    image: 'jtb75/insecure-apache:$BUILD_NUMBER',
+                    image: 'webapps/insecure-apache:$BUILD_NUMBER',
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
@@ -30,5 +30,15 @@ node {
     stage ('Publish Scan Results') {
         prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
     }
-    
+
+    stage ('Push Image') {
+        environment {
+            HARBOR_COMMON_CRED = credentials('harbor_cred')
+        }
+        sh label: '', script: '''docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
+        docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211/webapps/insecure-apache:latest
+        docker push 192.168.1.211/webapps/insecure-apache:$BUILD_NUMBER
+        docker push 192.168.1.211/webapps/insecure-apache:latest
+        '''
+    }
 }
