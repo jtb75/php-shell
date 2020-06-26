@@ -37,8 +37,8 @@ node {
     stage ('Push Image') {
             container('build') {
                 echo 'Pushing..'
-                sh """
                 echo ${env.HARBOR_COMMON_CRED_USR}
+                sh """
                 docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
                 docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:latest
                 docker login --username $HARBOR_COMMON_CRED_USR --password $HARBOR_COMMON_CRED_PSW 192.168.1.211:80
