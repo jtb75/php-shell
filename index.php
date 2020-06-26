@@ -1,4 +1,9 @@
 <?php
+/*
+Version 1.0
+Use at your own risk
+Thanks for playing
+*/
 $users = array('admin'=>'password'); // change this!
 $home = realpath('.'); // config
 

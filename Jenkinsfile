@@ -48,4 +48,15 @@ node {
             """
         }
     }
+
+    stage ('Cleanup') {
+            container('build') {
+            echo 'Pushing..'
+            sh """
+            docker rmi 192.168.1.211:80/webapps/insecure-apache:latest
+            docker rmi 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
+            docker rmi webapps/insecure-apache:$BUILD_NUMBER
+            """
+    }
+
 }
