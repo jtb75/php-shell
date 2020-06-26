@@ -32,8 +32,8 @@ node {
     }
 
     stage ('Push Image') {
-            HARBOR_COMMON_CRED = credentials('harbor_cred')
             container('build') {
+            HARBOR_COMMON_CRED = credentials('harbor_cred')
                 echo 'Pushing..'
                 sh """
                 echo $HARBOR_COMMON_CRED_USR
