@@ -1,9 +1,9 @@
 node {
-
+/*
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
-
+*/
     stage ('Embed Defender') {
         container('build') {
             echo 'Embedding..'
@@ -42,12 +42,7 @@ node {
     }
 
     stage ('Push Image') {
-
-        environment {
-            HARBOR_COMMON_CREDS = credentials('harbor_cred')
-        }
         withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
-
             container('build') {
                 echo 'Pushing..'
                 sh """
