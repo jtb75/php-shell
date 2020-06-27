@@ -2,10 +2,10 @@ node {
 
     environment {
         pipesecurity = "insecure"
+        sh "printenv | sort"
     }
 
     stage ('Embed Defender') {
-        sh "printenv | sort"
         container('build') {
             echo 'Embedding..'
         }
