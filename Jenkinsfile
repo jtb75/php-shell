@@ -4,7 +4,7 @@ node {
       set +x
       echo "$USERPASS"
     '''
-  }
+  
 
     stage ('Embed Defender') {
         sh "printenv | sort"
@@ -75,4 +75,4 @@ node {
     }
 */
 }
-
+}
