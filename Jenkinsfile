@@ -1,18 +1,15 @@
 node {
-  withCredentials([usernameColonPassword(credentialsId: 'harbor_cred', variable: 'USERPASS')]) {
-    sh """
-      set +x
-      echo "$USERPASS"
-    """
-  
-
     stage ('Embed Defender') {
-        sh "printenv | sort"
-
-        container('build') {
-            echo 'Embedding..'
+        withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
+            container('Embedding') {
+                echo 'Embedding..'
+                sh """
+                docker login --username cicd --password wVb!69s0ReZ9 192.168.1.211:80
+                """
+            }
         }
     }
+
 /*    
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
