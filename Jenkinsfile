@@ -4,7 +4,7 @@ node {
             container('build') {
                 echo 'Embedding..'
                 sh """
-                docker login --username cicd --password wVb!69s0ReZ9 192.168.1.211:80
+                docker login --username ${HARBOR_USER} --password ${HARBOR_PW} 192.168.1.211:80
                 """
             }
         }
