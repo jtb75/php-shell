@@ -4,17 +4,17 @@ node {
         PIPELINE = "insecure"
     }
 
-    stage ('Clone Master') {
-        git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
-    }
-
     stage ('Embed Defender') {
         sh label: '', script: 'printenv'
         container('build') {
             echo 'Embedding..'
         }
     }
-/*
+/*    
+    stage ('Clone Master') {
+        git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
+    }
+
     stage ('Build image') {
         container('build') {
             echo 'Building..'
