@@ -11,6 +11,7 @@ node {
                 which curl
                 which yum
                 which apk
+                which apt-get
             '''
         }
     }
