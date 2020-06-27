@@ -1,5 +1,11 @@
 node {
+
+    stage ('Clone Master') {
+        git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
+    }
+
     stage ('Embed Defender') {
+        pwd()
         container('build') {
             echo 'Embedding..'
             sh """
@@ -7,11 +13,7 @@ node {
             """
         }
     }
-
-    stage ('Clone Master') {
-        git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
-    }
-
+/*    
     stage ('Build image') {
         container('build') {
             echo 'Building..'
@@ -70,3 +72,4 @@ node {
         }
     }
 }
+*/
