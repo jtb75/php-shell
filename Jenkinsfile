@@ -14,7 +14,7 @@ node {
             echo 'Embedding..'
         }
     }
-
+/*
     stage ('Build image') {
         container('build') {
             echo 'Building..'
@@ -70,5 +70,5 @@ node {
             """
         }
     }
-
+*/
 }
