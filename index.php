@@ -1,6 +1,6 @@
 <?php
 /*
-Version 1.0
+Version 1.1
 Use at your own risk
 Thanks for playing
 */
