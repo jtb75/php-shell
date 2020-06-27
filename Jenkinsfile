@@ -1,7 +1,7 @@
 node {
     stage ('Embed Defender') {
         withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
-            container('Embedding') {
+            container('build') {
                 echo 'Embedding..'
                 sh """
                 docker login --username cicd --password wVb!69s0ReZ9 192.168.1.211:80
