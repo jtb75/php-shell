@@ -1,6 +1,10 @@
-pipeline {
-
 node {
+  withCredentials([usernameColonPassword(credentialsId: 'harbor_cred', variable: 'USERPASS')]) {
+    sh '''
+      set +x
+      echo "$USERPASS"
+    '''
+  }
 
     stage ('Embed Defender') {
         sh "printenv | sort"
@@ -71,4 +75,4 @@ node {
     }
 */
 }
-}
+
