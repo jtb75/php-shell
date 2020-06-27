@@ -1,7 +1,8 @@
+pipeline {
+
 node {
 
     stage ('Embed Defender') {
-        pipesecurity = "insecure"
         sh "printenv | sort"
 
         container('build') {
@@ -69,4 +70,5 @@ node {
         }
     }
 */
+}
 }
