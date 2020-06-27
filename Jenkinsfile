@@ -5,7 +5,8 @@ node {
     }
 
     stage ('Embed Defender') {
-        pwd()
+        DIR = pwd()
+        echo ${DIR}
         container('build') {
             echo 'Embedding..'
             sh """
