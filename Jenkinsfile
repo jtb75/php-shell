@@ -1,16 +1,13 @@
 node {
     stage ('Embed Defender') {
-        withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
-            container('build') {
-                echo 'Embedding..'
-                sh """
-                docker login --username ${HARBOR_USER} --password ${HARBOR_PW} 192.168.1.211:80
-                """
-            }
+        container('build') {
+            echo 'Embedding..'
+            sh """
+            printenv | sort
+            """
         }
     }
 
-/*    
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
@@ -47,16 +44,18 @@ node {
         environment {
             HARBOR_COMMON_CREDS = credentials('harbor_cred')
         }
+        withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
 
-        container('build') {
-            echo 'Pushing..'
-            sh """
-            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
-            docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:latest
-            docker login --username cicd --password wVb!69s0ReZ9 192.168.1.211:80
-            docker push 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
-            docker push 192.168.1.211:80/webapps/insecure-apache:latest
-            """
+            container('build') {
+                echo 'Pushing..'
+                sh """
+                docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
+                docker tag webapps/insecure-apache:$BUILD_NUMBER 192.168.1.211:80/webapps/insecure-apache:latest
+                docker login --username ${HARBOR_USER} --password ${HARBOR_PW} 192.168.1.211:80
+                docker push 192.168.1.211:80/webapps/insecure-apache:$BUILD_NUMBER
+                docker push 192.168.1.211:80/webapps/insecure-apache:latest
+                """
+            }
         }
     }
 
@@ -70,5 +69,4 @@ node {
             """
         }
     }
-*/
 }
