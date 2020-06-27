@@ -5,7 +5,7 @@ node {
     }
 
     stage ('Embed Defender') {
-        sh label: '', script: 'echo ${PIPELINE}'
+        echo 'Step 1'
         sh label: '', script: 'echo HERE'
         container('build') {
             echo 'Embedding..'
