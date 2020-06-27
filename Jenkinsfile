@@ -8,8 +8,8 @@ node {
         container('build') {
             echo 'Embedding..'
             sh """
-            pwd
-            ls
+            STAT=`curl -k https://192.168.1.164:8083/api/v1/_ping`
+            echo ${STAT}
             """
         }
     }
