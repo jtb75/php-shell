@@ -1,8 +1,8 @@
 node {
   withCredentials([usernameColonPassword(credentialsId: 'harbor_cred', variable: 'USERPASS')]) {
-    sh '''
+    sh """
       echo "$USERPASS"
-    '''
+    """
   
 
     stage ('Embed Defender') {
