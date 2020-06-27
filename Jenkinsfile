@@ -7,10 +7,8 @@ node {
     stage ('Embed Defender') {
         container('build') {
             echo 'Embedding..'
-            sh """
-            STAT=`curl -k https://192.168.1.164:8083/api/v1/_ping`
-            echo ${STAT}
-            """
+            sh label: '', script: '''STAT=`curl -k https://192.168.1.164:8083/api/v1/_ping`
+            echo ${STAT}'''
         }
     }
 /*    
