@@ -5,12 +5,11 @@ node {
     }
 
     stage ('Embed Defender') {
-        DIR = pwd()
-        echo ${DIR}
         container('build') {
             echo 'Embedding..'
             sh """
-            printenv | sort
+            pwd
+            ls
             """
         }
     }
