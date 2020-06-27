@@ -1,12 +1,11 @@
 node {
 
     environment {
-        PIPELINE = "insecure"
+        pipesecurity = "insecure"
     }
 
     stage ('Embed Defender') {
-        echo "Step 1: ${PIPELINE}"
-        sh label: '', script: 'echo HERE'
+        sh "printenv | sort"
         container('build') {
             echo 'Embedding..'
         }
