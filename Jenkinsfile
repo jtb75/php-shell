@@ -9,8 +9,7 @@ node {
             echo 'Embedding..'
             sh label: '', script: '''
                 printenv | sort
-                uname -a
-                ls /etc
+                apk add curl
             '''
         }
     }
