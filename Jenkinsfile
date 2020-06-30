@@ -5,7 +5,7 @@ node {
     }
 */
     stage ('Embed Defender') {
-        withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
+        withCredentials([usernamePassword(credentialsId: 'embed_cred', passwordVariable: 'EMBED_PW', usernameVariable: 'EMBED_USER')]) {
             container('build') {
                 echo 'Embedding..'
                 sh label: '', script: '''
