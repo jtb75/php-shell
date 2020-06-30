@@ -15,6 +15,7 @@ node {
                 else
                     exit
                 fi;
+                echo Here
             '''
         }
     }
