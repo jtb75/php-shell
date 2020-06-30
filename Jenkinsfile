@@ -8,10 +8,7 @@ node {
         container('build') {
             echo 'Embedding..'
             sh label: '', script: '''
-                which curl
-                which yum
-                which apk
-                which apt-get
+                printenv | sort
             '''
         }
     }
