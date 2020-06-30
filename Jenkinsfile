@@ -5,19 +5,18 @@ node {
     }
 */
     stage ('Embed Defender') {
-        container('build') {
-            echo 'Embedding..'
-            sh label: '', script: '''
-                apk add curl
-                WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_pingf`
-                if [ "OK" = "$WSS_UP" ]; then
-                    echo WSS Is Available
-                else
-                    echo WSS Not Available
-                    exit
-                fi;
-                echo Here
-            '''
+        withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
+            container('build') {
+                echo 'Embedding..'
+                sh label: '', script: '''
+                    apk add curl
+                    WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_pingf`
+                    if [ "OK" = "$WSS_UP" ]; then
+                        echo WSS Is Available
+                    fi;
+                    echo Here
+                '''
+            }
         }
     }
 /*    
