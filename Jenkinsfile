@@ -13,7 +13,7 @@ node {
                     WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_ping`
                     if [ "OK" = "$WSS_UP" ]; then
                         echo WSS Is Available
-                        curl --insecure -H "Content-Type: application/json" -d '{"username":"$EMBED_USER","password":"EMBED_PW"}' \
+                        curl --insecure -H "Content-Type: application/json" -d '{"username":"$EMBED_USER","password":"$EMBED_PW"}' \
                                   https://192.168.1.164:8083/api/v1/authenticate
                     fi;
                     echo Here
