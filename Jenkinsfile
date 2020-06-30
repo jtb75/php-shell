@@ -9,7 +9,8 @@ node {
             echo 'Embedding..'
             sh label: '', script: '''
                 printenv | sort
-                ls /usr/bin
+                uname -a
+                ls /etc
             '''
         }
     }
