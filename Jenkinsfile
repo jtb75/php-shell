@@ -9,7 +9,7 @@ node {
             echo 'Embedding..'
             sh label: '', script: '''
                 apk add curl
-                curl --insecure -k https://192.168.1.164:8083/api/v1/_ping
+                OK=`curl --insecure -k https://192.168.1.164:8083/api/v1/_ping`
             '''
         }
     }
