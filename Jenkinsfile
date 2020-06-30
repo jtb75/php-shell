@@ -9,6 +9,7 @@ node {
             echo 'Embedding..'
             sh label: '', script: '''
                 printenv | sort
+                /usr/bin/curl -h
             '''
         }
     }
