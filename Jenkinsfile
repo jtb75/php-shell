@@ -9,7 +9,7 @@ node {
             echo 'Embedding..'
             sh label: '', script: '''
                 apk add curl
-                WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_ping`
+                WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_pingf`
                 if [ "OK" = "$WSS_UP" ]; then
                     echo WSS is up
                 else
