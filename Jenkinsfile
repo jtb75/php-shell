@@ -13,7 +13,7 @@ node {
                 if [ "OK" = "$WSS_UP" ]; then
                     echo WSS is up
                 else
-                    exit (1)
+                    exit
                 fi;
             '''
         }
