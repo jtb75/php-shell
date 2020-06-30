@@ -8,8 +8,8 @@ node {
         container('build') {
             echo 'Embedding..'
             sh label: '', script: '''
-                printenv | sort
                 apk add curl
+                curl --insecure -k https://192.168.1.164:8083/api/v1/_ping
             '''
         }
     }
