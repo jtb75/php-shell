@@ -46,6 +46,7 @@ node {
     }
     
     stage ('Scan Image') {
+        echo 'Scanning..'
         prismaCloudScanImage ca: '',
                     cert: '',
                     dockerAddress: 'unix:///var/run/docker.sock',
@@ -59,6 +60,7 @@ node {
     }
     
     stage ('Publish Scan Results') {
+        echo 'Publishing Scan Results..'
         prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
     }
 
