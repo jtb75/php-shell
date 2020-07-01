@@ -28,6 +28,8 @@ node {
                     mv Dockerfile Dockerfile.orig
                     echo "Extracting new Dockerfile and Defender..."
                     unzip app_embedded_embed_Apache.zip
+                    echo "Cleaning up..."
+                    rm twistcli app_embedded_embed_Apache.zip
                 fi'''
             }
         }
