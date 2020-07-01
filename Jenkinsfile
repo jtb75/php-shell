@@ -32,7 +32,7 @@ node {
             }
         }
     }
-/*    
+    
     stage ('Build image') {
         container('build') {
             echo 'Building..'
@@ -85,6 +85,5 @@ node {
             """
         }
     }
-*/
 }
 
