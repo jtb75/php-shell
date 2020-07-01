@@ -3,7 +3,7 @@ node {
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
-    /*
+    
     stage ('Embed Defender') {
         withCredentials([usernamePassword(credentialsId: 'embed_cred', passwordVariable: 'EMBED_PW', usernameVariable: 'EMBED_USER')]) {
             container('build') {
@@ -32,7 +32,7 @@ node {
             }
         }
     }
-    */
+    
     stage ('Build image') {
         container('build') {
             echo 'Building..'
