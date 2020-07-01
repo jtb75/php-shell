@@ -3,7 +3,7 @@ node {
     stage ('Clone Master') {
         git credentialsId: 'git-hub-credentials', url: 'https://github.com/jtb75/insecure-apache.git'
     }
-    /*
+
     stage ('Embed Defender') {
         withCredentials([usernamePassword(credentialsId: 'embed_cred', passwordVariable: 'EMBED_PW', usernameVariable: 'EMBED_USER')]) {
             container('build') {
@@ -22,7 +22,7 @@ node {
                               --address "https://192.168.1.164:8083" \\
                               --console-host 192.168.1.164 \\
                               --app-id "Apache" \\
-                              --data-folder "/tmp" \\
+                              --data-folder "/tmp/Defender" \\
                               Dockerfile
                     echo "Backing up original Dockerfile..."
                     mv Dockerfile Dockerfile.orig
@@ -34,7 +34,7 @@ node {
             }
         }
     }
-    */
+    
     stage ('Build image') {
         container('build') {
             echo 'Building..'
