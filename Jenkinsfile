@@ -8,27 +8,27 @@ node {
         withCredentials([usernamePassword(credentialsId: 'embed_cred', passwordVariable: 'EMBED_PW', usernameVariable: 'EMBED_USER')]) {
             container('build') {
                 echo 'Embedding..'
-sh label: '', script: '''apk add curl
-WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_ping`
-if [ "OK" = "$WSS_UP" ]; then
-    echo "Generating Authentication Token..."
-    TOKEN=`curl --insecure -H "Content-Type: application/json" -d \'{"username":"install","password":"install"}\' \\
-              https://192.168.1.164:8083/api/v1/authenticate  | cut -d\\" -f4`
-    echo "Downloading current twistcli..."
-    curl --progress-bar -L -k --header "authorization: Bearer ${TOKEN}" \\
-              https://192.168.1.164:8083/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
-    ./twistcli app-embedded embed \\
-              --token ${TOKEN} \\
-              --address "https://192.168.1.164:8083" \\
-              --console-host 192.168.1.164 \\
-              -app-id "Apache" \\
-              --data-folder "/tmp" \\
-              Dockerfile
-    echo "Backing up original Dockerfile..."
-    mv Dockerfile Dockerfile.orig
-    echo "Extracting new Dockerfile and Defender..."
-    unzip app_embedded_embed_Apache.zip
-fi'''
+                sh label: '', script: '''apk add curl
+                WSS_UP=`curl --insecure -k https://192.168.1.164:8083/api/v1/_ping`
+                if [ "OK" = "$WSS_UP" ]; then
+                    echo "Generating Authentication Token..."
+                    TOKEN=`curl --insecure -H "Content-Type: application/json" -d \'{"username":"install","password":"install"}\' \\
+                              https://192.168.1.164:8083/api/v1/authenticate  | cut -d\\" -f4`
+                    echo "Downloading current twistcli..."
+                    curl --progress-bar -L -k --header "authorization: Bearer ${TOKEN}" \\
+                              https://192.168.1.164:8083/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
+                    ./twistcli app-embedded embed \\
+                              --token ${TOKEN} \\
+                              --address "https://192.168.1.164:8083" \\
+                              --console-host 192.168.1.164 \\
+                              -app-id "Apache" \\
+                              --data-folder "/tmp" \\
+                              Dockerfile
+                    echo "Backing up original Dockerfile..."
+                    mv Dockerfile Dockerfile.orig
+                    echo "Extracting new Dockerfile and Defender..."
+                    unzip app_embedded_embed_Apache.zip
+                fi'''
             }
         }
     }
