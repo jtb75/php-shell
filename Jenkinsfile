@@ -21,7 +21,7 @@ node {
                               --token ${TOKEN} \\
                               --address "https://192.168.1.164:8083" \\
                               --console-host 192.168.1.164 \\
-                              -app-id "Apache" \\
+                              --app-id "Apache" \\
                               --data-folder "/tmp" \\
                               Dockerfile
                     echo "Backing up original Dockerfile..."
