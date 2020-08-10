@@ -30,6 +30,20 @@ pipeline {
                 prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
             }
         }
+        stage ('Push Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'HARBOR_PW', usernameVariable: 'HARBOR_USER')]) {
+                    echo 'Pushing Image to Registry..'
+                    sh """
+                    docker tag webapps/php-shell:latest 192.168.1.211:80/webapps/php-shell:$BUILD_NUMBER
+                    docker tag webapps/php-shell:latest 192.168.1.211:80/webapps/php-shell:latest
+                    docker login --username ${HARBOR_USER} --password ${HARBOR_PW} 192.168.1.211:80
+                    docker push 192.168.1.211:80/webapps/php-shell:$BUILD_NUMBER
+                    docker push 192.168.1.211:80/webapps/php-shell:latest
+                    """
+                }
+            }
+        }
         stage ('Cleanup') {
             steps {
                 echo 'Cleaning up Image..'
