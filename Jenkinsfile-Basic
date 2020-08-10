@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Building Image..'
                 sh """
-                docker build -t webapps/php-shell:$BUILD_NUMBER .
+                docker build -t webapps/php-shell:latest .
                 """
             }
         }
