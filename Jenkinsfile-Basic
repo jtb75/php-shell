@@ -1,0 +1,13 @@
+pipeline {
+    agent { label 'dind-ssh-agent' }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Image..'
+                sh """
+                docker build -t webapps/php-shell:$BUILD_NUMBER .
+                """
+            }
+        }
+    }
+}
