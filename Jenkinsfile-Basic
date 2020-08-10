@@ -48,6 +48,8 @@ pipeline {
             steps {
                 echo 'Cleaning up Image..'
                 sh """
+                docker rmi 192.168.1.211:80/webapps/php-shell:$BUILD_NUMBER
+                docker rmi 192.168.1.211:80/webapps/php-shell:latest
                 docker rmi webapps/php-shell:latest
                 """
             }
