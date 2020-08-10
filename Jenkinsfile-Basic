@@ -9,5 +9,26 @@ pipeline {
                 """
             }
         }
+        stage('Scan') {
+            steps {
+                echo 'Scanning Image..'
+                prismaCloudScanImage ca: '',
+                cert: '',
+                dockerAddress: 'tcp://192.168.1.215:2376',
+                ignoreImageBuildTime: true,
+                image: 'webapps/php-shell:latest',
+                key: '',
+                logLevel: 'info',
+                podmanPath: '',
+                project: '',
+                resultsFile: 'prisma-cloud-scan-results.json'
+            }
+        }
+        stage ('Publish') {
+            steps {
+                echo 'Publishing Results..'
+                prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+            }
+        }
     }
 }
