@@ -1,6 +1,5 @@
-FROM php:apache
+FROM php:7.2.1-apache
 COPY index.php /var/www/html
-RUN apt-get update && apt-get upgrade -y
-RUN update-rc.d apache2 disable
+RUN rm /etc/rc*.d/S01apache2
 EXPOSE 80
-ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/apachectl", "-D" , "FOREGROUND"]
