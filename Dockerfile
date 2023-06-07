@@ -6,6 +6,6 @@ RUN cat /tmp/ulimits >> /etc/security/limits.conf
 EXPOSE 80
 LABEL org.opencontainers.image.authors="nospam.joe@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/jtb75/php-shell"
-LABEL org.opencontainers.image.vendor="jtb75"
+LABEL org.opencontainers.image.vendor="jtb75-"
 ENTRYPOINT ["/usr/sbin/apachectl"]
 CMD ["-D" , "FOREGROUND"]
