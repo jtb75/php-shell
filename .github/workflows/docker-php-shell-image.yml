@@ -26,11 +26,15 @@ jobs:
         working-directory: ./
         run: |
           docker build . --file Dockerfile --tag $REGISTRY/php-shell:$TAG --tag $REGISTRY/php-shell:latest
-#      - name: Scan the Docker Image
-#        working-directory: ./
-#        run: |
-#          curl -X GET -u ${{ secrets.PCC_USER }}:${{ secrets.PCC_SECRET }} ${{ secrets.PCC_CONSOLE_URL }}/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
-#          ./twistcli images scan -u ${{ secrets.PCC_USER }} -p ${{ secrets.PCC_SECRET }} --address ${{ secrets.PCC_CONSOLE_URL }} --details jtb75/php-shell:$TAG
+      - name: Scan the Docker Image
+        env:
+          WIZ_USER: ${{ secrets.WIZ_USER }}
+          WIZ_SECRET: ${{ secrets.WIZ_SECRET }}
+        working-directory: ./
+        run: |
+          curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64;
+          ./wizcli auth --id $WIZ_USER --secret $WIZ_SECRET;
+          ./wizcli docker scan --image $REGISTRY/php-shell:$TAG
       - name: Push the Docker image
         run: |
           docker push $REGISTRY/php-shell:$TAG
