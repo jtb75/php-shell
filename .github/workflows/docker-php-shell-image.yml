@@ -17,19 +17,20 @@ jobs:
           DOCKER_USER: ${{ secrets.NAME }}
           DOCKER_PASSWORD: ${{ secrets.SECRET }}
           REGISTRY: ${{ secrets.REGISTRY }}
+          PROJECT: ${{ secrets.PROJECT }}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $REGISTRY
           echo "TAG=`date +%Y.%m.%d.%H.%M.%S`" >> $GITHUB_ENV
-#      - name: Build the Docker image
-#        working-directory: ./
-#        run: |
-#          docker build . --file Dockerfile --tag jtb75/php-shell:$TAG --tag jtb75/php-shell:latest
+      - name: Build the Docker image
+        working-directory: ./
+        run: |
+          docker build . --file Dockerfile --tag $REGISTRY/$PROJECT/php-shell:$TAG --tag $REGISTRY/$PROJECT/php-shell:latest
 #      - name: Scan the Docker Image
 #        working-directory: ./
 #        run: |
 #          curl -X GET -u ${{ secrets.PCC_USER }}:${{ secrets.PCC_SECRET }} ${{ secrets.PCC_CONSOLE_URL }}/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
 #          ./twistcli images scan -u ${{ secrets.PCC_USER }} -p ${{ secrets.PCC_SECRET }} --address ${{ secrets.PCC_CONSOLE_URL }} --details jtb75/php-shell:$TAG
-#      - name: Push the Docker image
-#        run: |
-#          docker push jtb75/php-shell:$TAG
-#          docker push jtb75/php-shell:latest
+      - name: Push the Docker image
+        run: |
+          docker push $REGISTRY/$PROJECT/php-shell:$TAG
+          docker push $REGISTRY/$PROJECT/php-shell:latest
