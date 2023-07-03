@@ -33,6 +33,7 @@ jobs:
         working-directory: ./
         run: |
           curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64;
+          chmod 755 ./wizcli;
           ./wizcli auth --id $WIZ_USER --secret $WIZ_SECRET;
           ./wizcli docker scan --image $REGISTRY/php-shell:$TAG
       - name: Push the Docker image
