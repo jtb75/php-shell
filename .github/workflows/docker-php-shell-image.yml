@@ -18,7 +18,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.SECRET }}
           REGISTRY: ${{ env.REGISTRY }}
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $REGISTRY
           echo "TAG=`date +%Y.%m.%d.%H.%M.%S`" >> $GITHUB_ENV
 #      - name: Build the Docker image
 #        working-directory: ./
