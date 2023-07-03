@@ -1,4 +1,4 @@
-FROM php:7.2.1-apache
+FROM php:8-apache
 COPY index.php /var/www/html
 RUN rm /etc/rc*.d/S01apache2
 COPY ulimits /tmp
