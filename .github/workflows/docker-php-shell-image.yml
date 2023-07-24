@@ -19,6 +19,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.SECRET }}
           REGISTRY: ${{ secrets.REGISTRY }}
           PROJECT: ${{ secrets.PROJECT }}
+          POLICY: "jtb75-vuln-policy"
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $REGISTRY
           echo "TAG=`date +%Y.%m.%d.%H.%M.%S`" >> $GITHUB_ENV
