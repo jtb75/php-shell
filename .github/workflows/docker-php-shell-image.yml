@@ -27,12 +27,12 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $REGISTRY
           echo "TAG=`date +%Y.%m.%d.%H.%M.%S`" >> $GITHUB_ENV
           echo "REGISTRY=$REGISTRY/$PROJECT" >> $GITHUB_ENV
-          echo "POLICY=jtb75-vuln-policy" >> $GITHUN_ENV
+          echo "POLICY=jtb75-vuln-policy" >> $GITHUB_ENV
       - name: Build the Docker image
         working-directory: ./
         run: |
           docker build . --file Dockerfile --tag $REGISTRY/php-shell:$TAG --tag $REGISTRY/php-shell:latest
-      - name: Download and suthenticate Wiz CLI
+      - name: Download and Authenticate Wiz CLI
         env:
           WIZ_USER: ${{ secrets.WIZ_USER }}
           WIZ_SECRET: ${{ secrets.WIZ_SECRET }}
