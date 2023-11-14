@@ -7,5 +7,6 @@ EXPOSE 80
 LABEL org.opencontainers.image.authors="nospam.joe@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/jtb75/php-shell"
 LABEL org.opencontainers.image.vendor="jtb"
+LABEL org.opencontainers.image.version="0.0.1"
 ENTRYPOINT ["/usr/sbin/apachectl"]
 CMD ["-D" , "FOREGROUND"]
