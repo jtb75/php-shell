@@ -4,8 +4,8 @@ Version 1.2
 Use at your own risk
 Thanks for playing
 */
-$users = array('admin'=>'password'); // change this!
-$home = realpath('.'); // config
+$users = array('admin'=>'password');
+$home = realpath('.');
 
 function authenticate($u) {
   if (!isset($_SERVER['PHP_AUTH_USER'])) die(header('WWW-Authenticate: Basic realm="shell.php"',401));
